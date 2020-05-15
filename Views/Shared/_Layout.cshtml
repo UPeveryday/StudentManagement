@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/js/CustomScript.js"></script>
+  @*  <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>*@
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    @if (IsSectionDefined("Script"))//如果定义了就记载script
+    {
+        @RenderSection("Script", required: false)
+    }
+    @*
+        <environment include="Devolopment">
+            开发环境调用这个库
+            <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        </environment>*@
+    @*
+        <environment include="Development">
+            <link rel="stylesheet"
+                  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+                  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+                  crossorigin="anonymous" asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
+        </environment>*@
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" asp-controller="home" asp-action="index">
+                <img src="~/images/baobao.jpg" width="30" height="30" alt="Alternate Text" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="collapsibleNavbar" class="collapse navbar-collapse"></div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">学生列表</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Create">添加学生</a>
+                </li>
+            </ul>
+        </nav>
+        @RenderBody()
+    </div>
+   
+ 
+
+
+</body>
+</html>

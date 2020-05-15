@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Student>;
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";//如果没有viewstart那就需要些这句话
+    ViewBag.Title = "学生详情页S";
+}
+
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="card m-3">
+            <div class="card-header">
+                <h3>@item.Name</h3>
+            </div>
+            <img class="card-img-top" src="~/Images/baobao.jpg" asp-append-version="true" />@*强制缓存方式,读取服务缓存，对服务器的压力减少*@
+            <div class="card-footer text-center">
+                @*页面跳转*@
+                @*@Html.ActionLink("view", "details", "home", new { id = item.Id })
+        <a href="@Url.Action("details","home", new { id = item.Id } )" class="btn btn-primary">查看</a>*@
+                @* <a href="/Home/Details/@item.Id" class="btn btn-primary">查看</a>*@
+                <a asp-controller="home" asp-action="details"  asp-route-id="@item.Id" class="btn btn-primary m-1">查看</a>
+                <a href="#" class="btn btn-primary m-1" >编辑</a>
+                <a href="#" class="btn btn-danger" m-1>删除</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+@*<table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>班级名称</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.ClassNeme</td>
+                <td>@item.Email</td>
+            </tr>
+        }
+    </table>*@
+
+
