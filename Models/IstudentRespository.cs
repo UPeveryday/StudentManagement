@@ -10,6 +10,9 @@ namespace StudentManagement.Models
         Student GetStudent(int Id);
         IEnumerable<Student> GetStudents();
         Student Add(Student student);
+        Student Updata(Student student);
+
+        Student Delete(int  id);
 
     }
 }

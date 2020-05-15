@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StudentManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentManagement
 {
@@ -24,11 +25,16 @@ namespace StudentManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-          //  services.AddScoped<IstudentRespository, MockStudentRespository>();//依赖注入 ，每次http请求都是新实例
-          //  services.AddSingleton<IstudentRespository, MockStudentRespository>();//依赖注入 单利
-            services.AddTransient<IstudentRespository, MockStudentRespository>();//
+            //比AddDbContext多一个连接词
+            services.AddDbContextPool<AppDbContext>
+                (
+                optionsAction: options => options.UseSqlServer(_configuration.GetConnectionString("StudentDbConnection"))
+               );
+            // services.AddTransient<IstudentRespository, MockStudentRespository>();//
+            //  services.AddScoped<IstudentRespository, MockStudentRespository>();//依赖注入 ，每次http请求都是新实例
+            services.AddScoped<IstudentRespository, SqlStudentRepository>();
             services.AddMvc().AddXmlDataContractSerializerFormatters();//包含第三方的服务和功能,添加xml格式
-                                                                       // services.AddMvcCore();//不支持josnResult，仅仅包含MVC功能
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,6 +25,16 @@ namespace StudentManagement.Models
             return student;
         }
 
+        public Student Delete(int id)
+        {
+            Student student = _Students.FirstOrDefault(s => s.Id == id);
+            if (student != null)
+            {
+                _Students.Remove(student);
+            }
+            return student;
+        }
+
         public Student GetStudent(int Id)
         {
             return _Students.FirstOrDefault(p => p.Id == Id);
@@ -33,6 +43,16 @@ namespace StudentManagement.Models
         public IEnumerable<Student> GetStudents()
         {
             return _Students;
+        }
+
+        public Student Updata(Student student)
+        {
+            Student stu = _Students.FirstOrDefault(s => s.Id == student.Id);
+            if (stu != null)
+            {
+                stu = student;
+            }
+            return stu;
         }
     }
 }
