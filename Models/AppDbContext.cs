@@ -14,11 +14,7 @@ namespace StudentManagement.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>().HasData
-                (
-                new Student { Id = 3, ClassNeme = ClassName.GradeThree, Email = "1058@qq.com", Name = "许大伟" }
-                 );
-
+            modelBuilder.Seed();
 
             //base.OnModelCreating(modelBuilder);
         }

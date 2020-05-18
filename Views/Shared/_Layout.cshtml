@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <script src="~/js/CustomScript.js"></script>
-  @*  <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>*@
+    @*  <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>*@
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     @if (IsSectionDefined("Script"))//如果定义了就记载script
     {
@@ -25,6 +25,7 @@
                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
         </environment>*@
     <link href="~/css/site.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -48,9 +49,6 @@
         </nav>
         @RenderBody()
     </div>
-   
- 
-
-
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

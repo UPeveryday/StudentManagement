@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagement.Models;
+using StudentManagement.ViewModels;
 
 namespace StudentManagement.Controllers
 {
@@ -11,9 +14,11 @@ namespace StudentManagement.Controllers
     public class HomeController : Controller
     {
         private readonly IstudentRespository _studentRespository;
-        public HomeController(IstudentRespository istudentRespository)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public HomeController(IstudentRespository istudentRespository, IHostingEnvironment hosting)
         {
             _studentRespository = istudentRespository;
+            _hostingEnvironment = hosting;
         }
         //[Route("")]
         //[Route("Index")]//属性路由
@@ -54,14 +59,33 @@ namespace StudentManagement.Controllers
         //    return RedirectToAction("Details", new { id = news.Id });//重定向
         //}
         [HttpPost]
-        public IActionResult Create(Student student)
+        public IActionResult Create(StudentCreateViewModel student)
         {
+            string uniqueFilename = string.Empty;
             if (ModelState.IsValid)
             {
-                Student news = _studentRespository.Add(student);
-              //  return RedirectToAction("Details", new { id = news.Id });//重定向
+                if (student.PhotoPath != null)
+                {
+                    string upfoler = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                    uniqueFilename = Guid.NewGuid().ToString() + "_" + student.PhotoPath.FileName;
+                    string filepath = Path.Combine(upfoler, uniqueFilename);
+                    student.PhotoPath.CopyTo(new FileStream(filepath, FileMode.Create));
+
+
+                }
+                //Student news = _studentRespository.Add(student);
+                //  return RedirectToAction("Details", new { id = news.Id });//重定向
             }
-            return View();
+
+            Student newstu = new Student
+            {
+                Name = student.Name,
+                ClassNeme = student.ClassNeme,
+                Email = student.Email,
+                PhotoPath = uniqueFilename
+            };
+            _studentRespository.Add(newstu);
+            return RedirectToAction("Details", new { id = newstu.Id });//重定向
         }
     }
 }

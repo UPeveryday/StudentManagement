@@ -9,8 +9,8 @@ using StudentManagement.Models;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200515085320_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200518013102_Addpath")]
+    partial class Addpath
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,8 @@ namespace StudentManagement.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<string>("PhotoPath");
 
                     b.HasKey("Id");
 
